@@ -1,0 +1,44 @@
+int r = 3;
+int g = 6;
+int b = 5;
+
+
+void setup() {    //一回だけ実行する
+    Serial.begin(9600);
+    pinMode(r, OUTPUT);  //LEDを接続した13番ピンを出力用に設定する
+    pinMode(g, OUTPUT);
+    pinMode(b, OUTPUT);
+    pinMode(9, OUTPUT);
+    pinMode(A1, INPUT);
+   
+    
+    
+}
+void loop() {       //{}内を無限ループで実行する
+
+   int A=analogRead(A1); 
+   int B=255-map(A,0,1023,0,255); 
+    
+    analogWrite(r, B);  //LEDが接続された13番ピンをHIGH(5V)にする
+    Serial.println(B);
+    
+    if(B>100){
+      if(130<B &&B<150){
+        analogWrite(9, 255);
+      }else{
+        analogWrite(9,0);}
+      int C=map(B,100,255,0,255);
+    analogWrite(g,C);
+    
+    if(B>150){
+      if(180<B &&B<200){
+        analogWrite(9, 255);
+      }else{
+        analogWrite(9,0);}
+      int D=map(B,100,255,0,255);
+      analogWrite(b,D);
+    }else{
+      analogWrite(b,0);}
+    }else{
+      analogWrite(g,0);}
+}
